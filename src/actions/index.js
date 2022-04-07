@@ -2,7 +2,6 @@ import * as TYPES from './types';
 import tmdbAPI from '../api/tmdb';
 import history from '../history';
 
-// When app inits
 export const init = () => async dispatch => {
   dispatch({ type: TYPES.SET_LOADING });
   await dispatch(getConfig());
@@ -10,7 +9,6 @@ export const init = () => async dispatch => {
   dispatch({ type: TYPES.REMOVE_LOADING });
 };
 
-// Action Creator to get the config object from the API
 export const getConfig = () => async dispatch => {
   const res = await tmdbAPI.get('/configuration');
   dispatch({
@@ -19,7 +17,6 @@ export const getConfig = () => async dispatch => {
   });
 };
 
-// Get genres from API
 export const getGenres = () => async dispatch => {
   const res = await tmdbAPI.get('/genre/movie/list');
   dispatch({
@@ -28,7 +25,6 @@ export const getGenres = () => async dispatch => {
   });
 };
 
-// Set the current selected menu (discover or genre), if is valid
 export const setSelectedMenu = name => (dispatch, getState) => {
   const { staticCategories, genres } = getState().geral;
   if (!name) {
@@ -46,7 +42,6 @@ export const setSelectedMenu = name => (dispatch, getState) => {
   }
 };
 
-// Get movies by genre
 export const getMoviesGenre = (name, page, sort) => async (
   dispatch,
   getState
@@ -79,7 +74,6 @@ export const getMoviesGenre = (name, page, sort) => async (
   }
 };
 
-// Get movies discover
 export const getMoviesDiscover = (name, page) => async (dispatch, getState) => {
   const { selected } = getState().geral;
   if (!selected) {
@@ -103,7 +97,6 @@ export const getMoviesDiscover = (name, page) => async (dispatch, getState) => {
   }
 };
 
-// Get movies search
 export const getMoviesSearch = (query, page) => async dispatch => {
   try {
     dispatch({ type: TYPES.FETCH_MOVIES_LOADING });
@@ -124,14 +117,12 @@ export const getMoviesSearch = (query, page) => async dispatch => {
   }
 };
 
-// Set loading to true for next render
 export const clearMovies = () => {
   return {
     type: TYPES.FETCH_MOVIES_LOADING,
   };
 };
 
-// Get single movie
 export const getMovie = id => async dispatch => {
   try {
     dispatch({ type: TYPES.FETCH_MOVIE_LOADING });
@@ -152,14 +143,12 @@ export const getMovie = id => async dispatch => {
   }
 };
 
-// Set loading to true for next render
 export const clearMovie = () => {
   return {
     type: TYPES.FETCH_MOVIE_LOADING,
   };
 };
 
-// Get credits of single movie
 export const getCredits = () => async (dispatch, getState) => {
   const { id } = getState().movie;
 
@@ -175,7 +164,6 @@ export const getCredits = () => async (dispatch, getState) => {
   }
 };
 
-// Get recommended movies based on another
 export const getRecommendations = (id, page) => async dispatch => {
   try {
     dispatch({ type: TYPES.FETCH_RECOMMENDATIONS_LOADING });
@@ -195,14 +183,12 @@ export const getRecommendations = (id, page) => async dispatch => {
   }
 };
 
-// Set loading to true for next render
 export const clearRecommendations = () => {
   return {
     type: TYPES.FETCH_RECOMMENDATIONS_LOADING,
   };
 };
 
-// Get Person details
 export const getPerson = id => async dispatch => {
   try {
     dispatch({ type: TYPES.FETCH_PERSON_LOADING });
@@ -218,14 +204,12 @@ export const getPerson = id => async dispatch => {
   }
 };
 
-// Set loading to true for next render
 export const clearPerson = () => {
   return {
     type: TYPES.FETCH_PERSON_LOADING,
   };
 };
 
-// Get movies from an actor
 export const getMoviesforPerson = (id, page, sort) => async dispatch => {
   try {
     dispatch({ type: TYPES.FETCH_MOVIESPERSON_LOADING });
@@ -247,12 +231,10 @@ export const getMoviesforPerson = (id, page, sort) => async dispatch => {
   }
 };
 
-// Set loading to true for next render
 export const clearMoviesforPerson = () => {
   return {
     type: TYPES.FETCH_MOVIESPERSON_LOADING,
   };
 };
 
-// Clear error
 export const clearError = () => ({ type: TYPES.CLEAR_ERROR });

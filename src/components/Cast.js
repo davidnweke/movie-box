@@ -25,7 +25,6 @@ useEffect(() => {
   }
  
 
-  // Set amount of items to show on slider based on the width of the element
   const changeTotalShow = () => {
     let totalItems = Math.round(sliderElement.current.offsetWidth / 70);
     if (totalItems > cast.length) {

@@ -34,12 +34,10 @@ const Pagination = ({ movies }) => {
     });
   };
 
-  // If only 1 page
   if (total_pages === 1) {
     return null;
   }
 
-  // On first page, render page 2 button
   if (page < total_pages && page === 1) {
     return (
       <Wrapper>
@@ -53,7 +51,6 @@ const Pagination = ({ movies }) => {
     );
   }
 
-  // There is a next and a previous page, render accordingly
   else if (page < total_pages) {
     return (
       <Wrapper type="both">
@@ -73,7 +70,6 @@ const Pagination = ({ movies }) => {
     );
   }
 
-  // Otherwise on last page of results
   else {
     return (
       <Wrapper type="one">

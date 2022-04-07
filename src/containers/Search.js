@@ -29,15 +29,12 @@ const Search = ({
   const params = queryString.parse(location.search);
   const { secure_base_url } = geral.base.images;
 
-  // Fetch movies hook
   useFetchMoviesSearch(query, getMoviesSearch, params, clearMovies);
 
-  // If loading
   if (movies.loading) {
     return <Loader />;
   }
 
-  //If there are no results
   else if (movies.total_results === 0) {
     return (
       <NotFound
@@ -47,7 +44,6 @@ const Search = ({
     );
   }
 
-  // Else show the results
   else {
     return (
       <Wrapper>
@@ -61,7 +57,6 @@ const Search = ({
   }
 };
 
-// Hook to fetch the movies, will be called everytime the route for the search changes
 function useFetchMoviesSearch(query, getMoviesSearch, params, clearMovies) {
   useEffect(() => {
     scroll.scrollToTop({
@@ -72,7 +67,6 @@ function useFetchMoviesSearch(query, getMoviesSearch, params, clearMovies) {
   }, [query, params.page, getMoviesSearch, clearMovies]);
 }
 
-// Map State to Component Props
 const mapStateToProps = ({ geral, movies }) => {
   return { geral, movies };
 };

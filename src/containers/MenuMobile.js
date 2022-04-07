@@ -6,7 +6,6 @@ import StickyBox from 'react-sticky-box';
 import { slide as Menu } from 'react-burger-menu';
 
 import SearchBar from '../components/SearchBar';
-// import TmdbLogoGreen from '../svg/tmdbgreen.svg';
 import MenuItem from '../components/MenuItem';
 
 const WrapperStickyBox = styled(StickyBox)`

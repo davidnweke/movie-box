@@ -54,7 +54,7 @@ const Sidebar = ({ genres, staticCategories, selected }) => {
   return (
     <StickyBox>
       <Wrapper>
-        <Logo />
+      <Logo/>
         <Heading>Discover</Heading>
         {renderStatic(staticCategories, selected)}
         <Heading>Genres</Heading>

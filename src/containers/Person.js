@@ -219,7 +219,6 @@ const Person = ({
     label: 'Popularity',
   });
 
-  // Fetch person when id on url changes
   useEffect(() => {
     scroll.scrollToTop({
       smooth: true,
@@ -229,13 +228,11 @@ const Person = ({
     return () => clearPerson();
   }, [clearPerson, getPerson, match.params.id]);
 
-  // Fetch movies where person enters
   useEffect(() => {
     getMoviesforPerson(match.params.id, params.page, option.value);
     return () => clearMoviesforPerson();
   }, [params.page, option, getMoviesforPerson, match.params.id, clearMoviesforPerson]);
 
-  // If loading
   if (person.loading) {
     return <Loader />;
   }
@@ -306,7 +303,6 @@ function renderDate(birthday, deathday) {
   }
 }
 
-// Render back button
 function renderBack() {
   if (history.action === 'PUSH') {
     return (
@@ -317,7 +313,6 @@ function renderBack() {
   }
 }
 
-// Render website of person
 function renderWebsite(link) {
   if (!link) {
     return null;
@@ -329,7 +324,6 @@ function renderWebsite(link) {
   );
 }
 
-// Render imdb profile of person
 function renderImdb(id) {
   if (!id) {
     return null;
@@ -341,7 +335,6 @@ function renderImdb(id) {
   );
 }
 
-// Render movies where person enters
 function renderPersonMovies(moviesPerson, base_url, option, setOption) {
   if (moviesPerson.loading) {
     return <Loader />;
@@ -359,7 +352,6 @@ function renderPersonMovies(moviesPerson, base_url, option, setOption) {
   }
 }
 
-// Get state from store and pass as props to component
 const mapStateToProps = ({ person, geral, moviesPerson }) => ({
   person,
   geral,

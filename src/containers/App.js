@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Switch, Redirect } from 'react-router-dom';
+import { Router, Switch, Route, Redirect } from 'react-router-dom';
 import history from '../history';
 import { connect } from 'react-redux';
 import { init } from '../actions';
 import ReactGA from 'react-ga';
-import ProtectedRoute from '../Auth/ProtectedRoute';
-import { useAuth0 } from '@auth0/auth0-react';
 
 import Sidebar from './Sidebar';
 import MenuMobile from './MenuMobile';
@@ -97,10 +95,10 @@ const SearhBarWrapper = styled.div`
 ReactGA.initialize('UA-137885307-1');
 ReactGA.pageview(window.location.pathname + window.location.search);
 
-const App = ({ init, isLoad }) => {
+const App = ({ init, isLoading }) => {
   useEffect(() => {
     init();
-  }, [init]);
+  }, []);
   const [isMobile, setisMobile] = useState(null);
 
   // Set amount of items to show on slider based on the width of the element
@@ -116,14 +114,12 @@ const App = ({ init, isLoad }) => {
     return () => window.removeEventListener('resize', changeMobile);
   }, []);
 
-  const { isLoading } = useAuth0();
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
-  return  (
-    <ProtectedRoute history={history}>
+  return isLoading ? (
+    <ContentWrapper>
+      <Loader />
+    </ContentWrapper>
+  ) : (
+    <Router history={history}>
       <React.Fragment>
         <MainWrapper isMobile={isMobile}>
           {isMobile ? (
@@ -138,8 +134,7 @@ const App = ({ init, isLoad }) => {
           )}
           <ContentWrapper>
             <Switch>
-              
-              <ProtectedRoute
+              <Route
                 path={process.env.PUBLIC_URL + '/'}
                 exact
                 render={() => (
@@ -149,42 +144,42 @@ const App = ({ init, isLoad }) => {
                   />
                 )}
               />
-              <ProtectedRoute
+              <Route
                 path={process.env.PUBLIC_URL + '/genres/:name'}
                 exact
                 component={Genre}
               />
-              <ProtectedRoute
+              <Route
                 path={process.env.PUBLIC_URL + '/discover/:name'}
                 exact
                 component={Discover}
               />
-              <ProtectedRoute
+              <Route
                 path={process.env.PUBLIC_URL + '/search/:query'}
                 exact
                 component={Search}
               />
-              <ProtectedRoute
+              <Route
                 path={process.env.PUBLIC_URL + '/movie/:id'}
                 exact
                 component={Movie}
               />
-              <ProtectedRoute
+              <Route
                 path={process.env.PUBLIC_URL + '/person/:id'}
                 exact
                 component={Person}
               />
-              <ProtectedRoute
+              <Route
                 path="/404"
                 component={() => (
                   <NotFound title="Upps!" subtitle={`This doesn't exist...`} />
                 )}
               />
-              <ProtectedRoute
+              <Route
                 path={process.env.PUBLIC_URL + '/error'}
                 component={ShowError}
               />
-              <ProtectedRoute
+              <Route
                 component={() => (
                   <NotFound title="Upps!" subtitle={`This doesn't exist...`} />
                 )}
@@ -193,7 +188,7 @@ const App = ({ init, isLoad }) => {
           </ContentWrapper>
         </MainWrapper>
       </React.Fragment>
-    </ProtectedRoute>
+    </Router>
   );
 };
 

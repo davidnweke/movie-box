@@ -149,7 +149,6 @@ const Tooltip = styled.span`
   }
 `;
 
-// Function to render list of movies
 const MovieItem = ({ movie, baseUrl }) => {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
@@ -171,8 +170,7 @@ const MovieItem = ({ movie, baseUrl }) => {
           onLoad={() => setLoaded(true)}
           style={!loaded ? { display: 'none' } : {}}
           src={`${baseUrl}w342${movie.poster_path}`}
-          // If no image, error will occurr, we set error to true
-          // And only change the src to the nothing svg if it isn't already, to avoid infinite callback
+         
           onError={e => {
             setError(true);
             if (e.target.src !== `${NothingSvg}`) {

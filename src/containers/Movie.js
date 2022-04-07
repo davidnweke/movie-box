@@ -276,7 +276,6 @@ const Movie = ({
   const { secure_base_url } = geral.base.images;
   const params = queryString.parse(location.search);
 
-  // Fetch movie id when id on the url changes
   useEffect(() => {
     scroll.scrollToTop({
       smooth: true,
@@ -293,7 +292,6 @@ const Movie = ({
     };
   }, [clearMovie, clearRecommendations, getMovie, getRecommendations, match.params.id, params.page]);
 
-  // If loading
   if (movie.loading) {
     return <Loader />;
   }
@@ -319,8 +317,6 @@ const Movie = ({
               error={error ? 1 : 0}
               src={`${secure_base_url}w780${movie.poster_path}`}
               onLoad={() => setLoaded(true)}
-              // If no image, error will occurr, we set error to true
-              // And only change the src to the nothing svg if it isn't already, to avoid infinite callback
               onError={(e) => {
                 setError(true);
                 if (e.target.src !== `${NothingSvg}`) {
@@ -377,7 +373,6 @@ const Movie = ({
   );
 };
 
-//Render the back button if user was pushed into page
 function renderBack() {
   if (history.action === 'PUSH') {
     return (
@@ -388,7 +383,6 @@ function renderBack() {
   }
 }
 
-// Render Personal Website button
 function renderWebsite(link) {
   if (!link) {
     return null;
@@ -400,7 +394,6 @@ function renderWebsite(link) {
   );
 }
 
-// Render IMDB button
 function renderImdb(id) {
   if (!id) {
     return null;
@@ -412,7 +405,6 @@ function renderImdb(id) {
   );
 }
 
-// Render Trailer button. On click triggers state to open modal of trailer
 function renderTrailer(videos, modalOpened, setmodalOpened) {
   if (videos.length === 0) {
     return;
@@ -435,7 +427,6 @@ function renderTrailer(videos, modalOpened, setmodalOpened) {
   );
 }
 
-// Function to get the year only from the date
 function splitYear(date) {
   if (!date) {
     return;
@@ -444,7 +435,6 @@ function splitYear(date) {
   return year;
 }
 
-// Render info of movie
 function renderInfo(languages, time, data) {
   const info = [];
   if (languages.length !== 0) {
@@ -457,7 +447,6 @@ function renderInfo(languages, time, data) {
     .map((el, i, array) => (i !== array.length - 1 ? `${el} / ` : el));
 }
 
-// Render recommended movies
 function renderRecommended(recommended, base_url) {
   if (recommended.loading) {
     return <Loader />;
@@ -477,7 +466,6 @@ function renderRecommended(recommended, base_url) {
   }
 }
 
-// Render Genres with links
 function renderGenres(genres) {
   return genres.map((genre) => (
     <StyledLink
@@ -494,7 +482,6 @@ function renderGenres(genres) {
   ));
 }
 
-// Get state from store and pass as props to component
 const mapStateToProps = ({ movie, geral, recommended }) => ({
   movie,
   geral,

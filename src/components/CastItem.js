@@ -33,10 +33,7 @@ const CastItem = ({ person, baseUrl }) => {
     >
       <MovieImg
         src={`${baseUrl}w185${person.profile_path}`}
-        // Image loaded, set loaded to true
         onLoad={() => setLoaded(true)}
-        // If no image, error will occurr, we set error to true
-        // And only change the src to the nothing svg if it isn't already, to avoid infinite callback
         onError={e => {
           if (e.target.src !== `${PersonAvatar}`) {
             e.target.src = `${PersonAvatar}`;

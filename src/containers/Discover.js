@@ -16,7 +16,6 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-// Discover Component
 const Discover = ({
   geral,
   match,
@@ -29,14 +28,11 @@ const Discover = ({
   const params = queryString.parse(location.search);
   const { secure_base_url } = geral.base.images;
 
-  // Send url to setSelected Action Creator, it will check if is valid
   useEffect(() => {
     setSelectedMenu(match.params.name);
-    // Clean up to remove selected menu from state
     return () => setSelectedMenu();
   }, [match.params.name, setSelectedMenu]);
 
-  // Call hook to fetch movies discover, pass in the url query
   useFetchMoviesDiscover(
     match.params.name,
     getMoviesDiscover,
@@ -44,12 +40,10 @@ const Discover = ({
     clearMovies
   );
 
-  // If loading
   if (movies.loading) {
     return <Loader />;
   }
 
-  // Else return movies list
   return (
     <Wrapper>
       <Helmet>
@@ -62,7 +56,6 @@ const Discover = ({
   );
 };
 
-// Hook to fetch the movies, will be called everytime the route or the filters from the state change
 function useFetchMoviesDiscover(name, getMoviesDiscover, params, clearMovies) {
   const query = name.replace(/\s+/g, '_').toLowerCase();
   useEffect(() => {
@@ -74,7 +67,6 @@ function useFetchMoviesDiscover(name, getMoviesDiscover, params, clearMovies) {
   }, [query, params.page, getMoviesDiscover, clearMovies]);
 }
 
-// Map State to Component Props
 const mapStateToProps = ({ geral, movies }) => {
   return { geral, movies };
 };

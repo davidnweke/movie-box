@@ -17,8 +17,6 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-// Genres Component
-// Gets geral object from State, Match from Router, Action Creators to set Selected menu and Movies from Store
 const Genre = ({
   geral,
   match,
@@ -35,14 +33,12 @@ const Genre = ({
   const params = queryString.parse(location.search);
   const { secure_base_url } = geral.base.images;
 
-  // Send url to setSelected Action Creator, it will check if is valid, and set the header accordingly
+  
   useEffect(() => {
     setSelectedMenu(match.params.name);
-    // Clean up to remove selected menu from state
     return () => setSelectedMenu();
   }, [match.params.name, setSelectedMenu]);
 
-  // Call hook to fetch movies of the genre
   useFetchMoviesGenre(
     match.params.name,
     getMoviesGenre,
@@ -51,7 +47,6 @@ const Genre = ({
     clearMovies
   );
 
-  // If loading
   if (movies.loading) {
     return <Loader />;
   }
@@ -68,7 +63,6 @@ const Genre = ({
   );
 };
 
-// Hook to fetch the movies, will be called everytime the route or the filters from the state change
 function useFetchMoviesGenre(
   genre,
   getMoviesGenre,
@@ -85,7 +79,6 @@ function useFetchMoviesGenre(
   }, [genre, params.page, option, getMoviesGenre, clearMovies]);
 }
 
-// Map State to Component Props
 const mapStateToProps = ({ geral, movies }) => {
   return { geral, movies };
 };
